@@ -1,0 +1,15 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 20px;
+}
+
+h1 {
+    color: #333;
+}
+.section{
+    width: /*SECTION_WIDTH*/ 0%;
+    height: /*SECTION_HEIGHT*/ 0%;
+    top: /*SECTION_POSITION*/ 0%;
+    left: /*SECTION_LEFT*/ 0%;
+}
