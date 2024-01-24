@@ -18,8 +18,8 @@ class ModuleController extends Controller
     {
         $this->module = $clothesRepository;
     }
-    public function generate(ModuleRequest $request): BinaryFileResponse|JsonResponse
-    {
+
+    public function generate(ModuleRequest $request): BinaryFileResponse|JsonResponse {
         try {
             $module = $request->validated();
             $moduleDto = ModuleDTO::fromArray($module);
@@ -27,10 +27,16 @@ class ModuleController extends Controller
             return response()->download($result)->deleteFileAfterSend(true);
         } catch (\Illuminate\Validation\ValidationException $e) {
             $errors = $e->errors();
-            return response()->json(['errors' => $errors], ResponseAlias::HTTP_UNPROCESSABLE_ENTITY);
+            return response()->json(
+                ['errors' => $errors],
+                ResponseAlias::HTTP_UNPROCESSABLE_ENTITY
+            );
         } catch (\Exception $e) {
             Log::error((string)$e);
-            return response()->json(['error' => 'Something went wrong'], ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json(
+                ['error' => 'Something went wrong'],
+                ResponseAlias::HTTP_INTERNAL_SERVER_ERROR
+            );
         }
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Classes;
 
 use App\Dto\ModuleDTO;
+use JetBrains\PhpStorm\ArrayShape;
 use ZipArchive;
 
 class Module
@@ -34,12 +35,26 @@ class Module
             mkdir($tempDir);
         }
 
-        $templateHtml = file_get_contents(resource_path($templatePath . '/template.html'));
-        $styleCss = file_get_contents(resource_path($templatePath . '/style.css'));
-        $scriptJs = file_get_contents(resource_path($templatePath . '/script.js'));
+        $templateHtml = file_get_contents(
+            resource_path($templatePath . '/template.html')
+        );
+        $styleCss = file_get_contents(
+            resource_path($templatePath . '/style.css')
+        );
+        $scriptJs = file_get_contents(
+            resource_path($templatePath . '/script.js')
+        );
 
-        $templateHtml = str_replace(array_keys($placeholders), array_values($placeholders), $templateHtml);
-        $styleCss = str_replace(array_keys($placeholders), array_values($placeholders), $styleCss);
+        $templateHtml = str_replace(
+            array_keys($placeholders),
+            array_values($placeholders),
+            $templateHtml
+        );
+        $styleCss = str_replace(
+            array_keys($placeholders),
+            array_values($placeholders),
+            $styleCss
+        );
 
         file_put_contents($tempDir . '/template.html', $templateHtml);
         file_put_contents($tempDir . '/style.css', $styleCss);
@@ -51,15 +66,21 @@ class Module
      *
      * @return array
      */
-    private function replacePlaceholders(ModuleDTO $module): array
+    #[ArrayShape(['%NAME%'             => "string",
+                  '%CLICKOUT%'         => "string",
+                  '/*SECTION_WIDTH*/'  => "mixed",
+                  '/*SECTION_HEIGHT*/' => "mixed",
+                  '/*SECTION_TOP*/'    => "mixed",
+                  '/*SECTION_LEFT*/'   => "mixed"
+    ])] private function replacePlaceholders(ModuleDTO $module): array
     {
         return [
-            '%NAME%'                => $module->getName(),
-            '%CLICKOUT%'            => $module->getClickout(),
-            '/*SECTION_WIDTH*/'     => $module->getDimensions()->get('width'),
-            '/*SECTION_HEIGHT*/'    => $module->getDimensions()->get('height'),
-            '/*SECTION_TOP*/'       => $module->getPosition()->get('x'),
-            '/*SECTION_LEFT*/'      => $module->getPosition()->get('y'),
+            '%NAME%'             => $module->getName(),
+            '%CLICKOUT%'         => $module->getClickout(),
+            '/*SECTION_WIDTH*/'  => $module->getDimensions()->get('width'),
+            '/*SECTION_HEIGHT*/' => $module->getDimensions()->get('height'),
+            '/*SECTION_TOP*/'    => $module->getPosition()->get('x'),
+            '/*SECTION_LEFT*/'   => $module->getPosition()->get('y'),
         ];
     }
 
@@ -72,7 +93,9 @@ class Module
         $zip = new ZipArchive();
         $zipFileName = storage_path('app/template_files.zip');
 
-        if ($zip->open($zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
+        if ($zip->open($zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE)
+            === true
+        ) {
             $zip->addFile($tempDir . '/template.html', 'template.html');
             $zip->addFile($tempDir . '/style.css', 'style.css');
             $zip->addFile($tempDir . '/script.js', 'script.js');

@@ -1,7 +1,10 @@
 <template>
   <nav class="nav">
     <img src="/img/logo.svg" alt="logo"/>
-    <button class="button" :class="{ 'disabled': !moduleStore.hasSelected }" @click="generateModule">{{ logo }}</button>
+    <button :class="{ 'button': true, 'disabled': !moduleStore.hasSelected }" @click="generateModule">{{
+        logo
+      }}
+    </button>
   </nav>
 </template>
 

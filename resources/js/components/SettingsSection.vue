@@ -1,6 +1,6 @@
 <template>
   <section class="pane module-settings-pane">
-    <h3>{{name}}</h3>
+    <h3>{{ name }}</h3>
     <form ref="selectedModule">
       <div class="form-group" v-if="moduleStore.hasSelected">
         <div class="row">

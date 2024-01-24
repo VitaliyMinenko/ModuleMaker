@@ -1,8 +1,11 @@
 <template>
   <main class="main">
-    <AvailableSection :moduleStore="moduleStore" :availableModules="moduleStore.getAvailable" :name="'AVAILABLE MODULES'"></AvailableSection>
-    <SelectedSection :moduleStore="moduleStore" :selectedModule="moduleStore.getSelected" :name="'SELECTED MODULE'"></SelectedSection>
-    <SettingsSection :moduleStore="moduleStore" :selectedModule="moduleStore.getSelected" :name="'MODULE SETTINGS'"></SettingsSection>
+    <AvailableSection :moduleStore="moduleStore" :availableModules="moduleStore.getAvailable"
+                      :name="'AVAILABLE MODULES'"></AvailableSection>
+    <SelectedSection :moduleStore="moduleStore" :selectedModule="moduleStore.getSelected"
+                     :name="'SELECTED MODULE'"></SelectedSection>
+    <SettingsSection :moduleStore="moduleStore" :selectedModule="moduleStore.getSelected"
+                     :name="'MODULE SETTINGS'"></SettingsSection>
   </main>
 </template>
 
